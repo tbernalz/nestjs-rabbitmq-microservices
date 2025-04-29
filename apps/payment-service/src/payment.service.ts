@@ -7,10 +7,10 @@ export class PaymentService {
 
   @RabbitSubscribe({
     exchange: 'order_exchange',
-    routingKey: 'order.created',
+    routingKey: 'order.create',
     queue: 'payment-service-queue',
   })
-  public async handleOrderCreated(order: any) {
+  public async handleOrderCreated(order: any): Promise<void> {
     this.logger.log(`Processing payment for order: ${JSON.stringify(order)}`);
   }
 }
