@@ -1,12 +1,16 @@
-import { Controller, Get } from '@nestjs/common';
-import { ApiGatewayService } from './api-gateway.service';
+import { Body, Controller, Post } from '@nestjs/common';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
-@Controller()
+@Controller('orders')
 export class ApiGatewayController {
-  constructor(private readonly apiGatewayService: ApiGatewayService) {}
+  constructor(private readonly amqpConnection: AmqpConnection) {}
 
-  @Get()
-  getHello(): string {
-    return this.apiGatewayService.getHello();
+  @Post()
+  async createOrder(@Body() order: any): Promise<any> {
+    await this.amqpConnection.publish('order_exchange', 'order.create', {
+      ...order,
+      createdAt: new Date(),
+    });
+    return { message: 'Order published to RabbitMQ' };
   }
 }
