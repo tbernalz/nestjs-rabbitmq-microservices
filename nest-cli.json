@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/nestjs-kafka-microservices/src",
+  "sourceRoot": "apps/nestjs-rabbitmq-microservices/src",
   "compilerOptions": {
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/nestjs-kafka-microservices/tsconfig.app.json"
+    "tsConfigPath": "apps/nestjs-rabbitmq-microservices/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "apps/nestjs-kafka-microservices",
+  "root": "apps/nestjs-rabbitmq-microservices",
   "projects": {
     "api-gateway": {
       "type": "application",
@@ -19,13 +19,13 @@
         "tsConfigPath": "apps/api-gateway/tsconfig.app.json"
       }
     },
-    "nestjs-kafka-microservices": {
+    "nestjs-rabbitmq-microservices": {
       "type": "application",
-      "root": "apps/nestjs-kafka-microservices",
+      "root": "apps/nestjs-rabbitmq-microservices",
       "entryFile": "main",
-      "sourceRoot": "apps/nestjs-kafka-microservices/src",
+      "sourceRoot": "apps/nestjs-rabbitmq-microservices/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/nestjs-kafka-microservices/tsconfig.app.json"
+        "tsConfigPath": "apps/nestjs-rabbitmq-microservices/tsconfig.app.json"
       }
     },
     "order-service": {
