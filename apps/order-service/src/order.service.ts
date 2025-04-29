@@ -1,15 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
+import { Injectable, Logger } from '@nestjs/common';
+import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly amqpConnection: AmqpConnection) {}
+  private readonly logger = new Logger(OrderService.name);
 
-  async createOrder(order: any): Promise<{ message: string }> {
-    await this.amqpConnection.publish('order_exchange', 'order.created', {
-      ...order,
-      createdAt: new Date(),
-    });
-    return { message: 'Order created and event published' };
+  @RabbitSubscribe({
+    exchange: 'order_exchange',
+    routingKey: 'order.create',
+    queue: 'order-service-queue',
+  })
+  public async handleOrderCreated(order: any): Promise<void> {
+    this.logger.log(`Received order to create:: ${JSON.stringify(order)}`);
   }
 }
