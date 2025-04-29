@@ -1,8 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
 export class PaymentService {
-  getHello(): string {
-    return 'Hello World!';
+  private readonly logger = new Logger(PaymentService.name);
+
+  @RabbitSubscribe({
+    exchange: 'order_exchange',
+    routingKey: 'order.created',
+    queue: 'payment-service-queue',
+  })
+  public async handleOrderCreated(order: any) {
+    this.logger.log(`Processing payment for order: ${JSON.stringify(order)}`);
   }
 }
