@@ -14,19 +14,18 @@ A production-oriented microservices hands-on using [NestJS](https://nestjs.com/)
 
 ## 📑 Table of Contents
 
-- [🧠 Overview](#🧠-overview)
-- [📚 Tech Stack](#📚-tech-stack)
-- [🧱 Architecture Highlights](#)
-- [📁 Project Structure](#📁-project-structure)
-- [🚀 Services Overview](#🚀-services-overview)
-- [🐇 RabbitMQ Setup](#🐇-rabbitmq-setup)
-- [📦 Running Locally](#📦-running-locally)
-- [🧪 Testing the Flow](#🧪-testing-the-flow)
-- [✅ Best Practices Followed](#✅-best-practices-followed)
-- [🧭 Next Steps / Ideas](#🧭-next-steps--ideas)
-- [📄 License](#📄-license)
-- [🌟 Contributing](#🌟-contributing)
-- [✉️ Contact](#✉️-contact)
+- [🧠 Overview](#-overview)
+- [📚 Tech Stack](#-tech-stack)
+- [📁 Project Structure](#-project-structure)
+- [🚀 Services Overview](#-services-overview)
+- [🐇 RabbitMQ Setup](#-rabbitmq-setup)
+- [📦 Running Locally](#-running-locally)
+- [🧪 Testing the Flow](#-testing-the-flow)
+- [✅ Best Practices Followed](#-best-practices-followed)
+- [🧭 Next Steps / Ideas](#-next-steps--ideas)
+- [📄 License](#-license)
+- [🌟 Contributing](#-contributing)
+- [✉️ Contact](#️-contact)
 
 ## 📚 Tech Stack
 
@@ -196,6 +195,8 @@ To report bugs and suggest new features, you can create an issue
 
 [tbernalz@eafit.edu.co](mailto:tbernalz@eafit.edu.co) | [LinkedIn](https://www.linkedin.com/in/tbernalz)
 
-<a href="https://www.linkedin.com/in/tbernalz" target="_blank" rel="noreferrer">
-    <img src="https://seeklogo.com/images/L/linkedin-new-2020-logo-E14A5D55ED-seeklogo.com.png" alt="Linkedin" width="40" height="40"/>
+<p align="left">
+  <a href="https://www.linkedin.com/in/tbernalz">
+    <img src="https://skillicons.dev/icons?i=linkedin" />
   </a>
+</p>
