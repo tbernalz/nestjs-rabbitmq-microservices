@@ -1,98 +1,201 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🐇 RabbitMQ-based Microservices with NestJS
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A production-oriented microservices hands-on using [NestJS](https://nestjs.com/), [RabbitMQ](https://www.rabbitmq.com/), and a microservices architecture with request-response and event-driven communication patterns.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🧠 Overview
 
-## Description
+**This project demonstrates:**
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- A clean separation of concerns using Microservice Architecture
+- Asynchronous messaging publishing and subscription via RabbitMQ
+- Event-driven communication communication using `@golevelup/nestjs-rabbitmq`
+- An API Gateway acting as the HTTP entrypoint
+- Dockerized RabbitMQ setup for local development
 
-## Project setup
+## 📑 Table of Contents
 
-```bash
-$ npm install
+- [🧠 Overview](#🧠-overview)
+- [📚 Tech Stack](#📚-tech-stack)
+- [🧱 Architecture Highlights](#)
+- [📁 Project Structure](#📁-project-structure)
+- [🚀 Services Overview](#🚀-services-overview)
+- [🐇 RabbitMQ Setup](#🐇-rabbitmq-setup)
+- [📦 Running Locally](#📦-running-locally)
+- [🧪 Testing the Flow](#🧪-testing-the-flow)
+- [✅ Best Practices Followed](#✅-best-practices-followed)
+- [🧭 Next Steps / Ideas](#🧭-next-steps--ideas)
+- [📄 License](#📄-license)
+- [🌟 Contributing](#🌟-contributing)
+- [✉️ Contact](#✉️-contact)
+
+## 📚 Tech Stack
+
+- **NestJS** – Modular, extensible Node.js framework
+- **RabbitMQ** – Message broker for decoupled service communication
+- **@golevelup/nestjs-rabbitmq** – RabbitMQ integration for NestJS
+- **Docker & Docker Compose** – Local infrastructure
+- **TypeScript** – Typed JavaScript
+
+[<img src = https://seeklogo.com/images/N/nestjs-logo-09342F76C0-seeklogo.com.png alt="nestjs" width="40" height="40">](https://nestjs.com/)
+[<img src = https://images.seeklogo.com/logo-png/27/1/rabbitmq-logo-png_seeklogo-273837.png alt="rabbitmq" width="40" height="40">](https://www.rabbitmq.com/)
+[<img src = https://images.seeklogo.com/logo-png/35/1/docker-logo-png_seeklogo-352738.png alt="docker" width="40" height="40">](https://www.docker.com/)
+[<img src = https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png alt="typescript" width="40" height="40">](https://www.typescriptlang.org/)
+
+## 📁 Project Structure
+
+```
+nestjs-rabbitmq-microservices/
+├── apps/
+│   ├── api-gateway/         # HTTP entrypoint
+│   ├── order-service/       # Consumes events
+│   └── payment-service/     # Consumes events
+├── docker-compose.yml       # RabbitMQ local setup
+├── .env.example             # Example environment config
+└── README.md
+
 ```
 
-## Compile and run the project
+## 🚀 Services Overview
+
+**API Gateway**
+
+- Thin HTTP layer (e.g. Accepts HTTP requests like `POST /orders`)
+- Sends messages to Order and Payment Services over RabbitMQ
+
+**Order Service**
+
+- Subscribes to `order.create` events
+- Reacts by logging or simulating order processing
+
+**Payment Service**
+
+- Subscribes to `order.create` events
+- Reacts by logging or simulating payment processing
+
+## 🐇 RabbitMQ Setup
+
+Dockerized RabbitMQ instance via `docker-compose`.
+
+- AMQP: `amqp://localhost:5672`
+- Management UI: [http://localhost:15672](http://localhost:15672/)
+- Default credentials: `guest` / `guest`
+
+## 📦 Running Locally
+
+**1. Clone the Repo**
 
 ```bash
-# development
-$ npm run start
+git clone https://github.com/tbernalz/nestjs-rabbitmq-microservices.git
+cd nestjs-rabbitmq-microservices
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Run tests
+**2. Install Dependencies**
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
+**3. Set up environment variables**
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Create a `.env` file in the root directory (same level as `package.json`) and add the following:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+```env
+# RabbitMQ Configuration
+RABBITMQ_URI=amqp://guest:guest@localhost:5672
+
+# Microservice Ports
+API_GATEWAY_PORT=3000
+ORDER_SERVICE_PORT=3001
+PAYMENT_SERVICE_PORT=3002
+
+```
+
+> [!NOTE]
+> Copy from the provided .env.example
+
+**4. Start RabbitMQ**
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+docker compose up -d
+
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+**5. Run Services**
 
-## Resources
+Each service can be started independently. In separate terminals:
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+# Start API Gateway
+npm run start:dev:gateway
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+# Start Order Service
+npm run start:dev:order
 
-## Support
+# Start Payment Service
+npm run start:dev:payment
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
 
-## Stay in touch
+## 🧪 Testing the Flow
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+1. **Send a request to the API Gateway**
 
-## License
+   ```bash
+   curl -X POST http://localhost:3000/orders \
+     -H "Content-Type: application/json" \
+     -d '{"id": "123", "amount": 500}'
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+   ```
+
+2. **You should see logs in**
+
+   - **API Gateway**: Received message and published event
+   - **Order Service**: Subscribed to the event and processed it
+   - **Payment Service**: Subscribed to the event and processed it
+
+## ✅ Best Practices Followed
+
+- [x] Decoupled services with single responsibility
+- [x] RabbitMQ + Docker Compose for reproducibility
+- [x] Message-driven communication
+- [x] Scalable consumer queues (RabbitMQ)
+- [x] `@golevelup/nestjs-rabbitmq` abstraction
+
+## 🧭 Next Steps / Ideas
+
+- [ ] Add Dead Letter Queue (DLQ) for failed messages
+- [ ] Centralized logging (e.g., with Winston)
+- [ ] Retry strategy for transient errors
+- [ ] Health checks with `@nestjs/terminus`
+- [ ] AsyncAPI or OpenAPI event documentation
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🌟 Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+**How can I contribute to the project?**
+
+There are many ways to contribute:
+
+- Give a start to the repo ⭐
+- Share the project 🧑‍🤝‍🧑
+- Report bugs 🐛
+- Suggest new features ⚙️
+
+To report bugs and suggest new features, you can create an issue
+[here](https://github.com/tbernalz/nestjs-rabbitmq-microservices/issues).
+
+## ✉️ Contact
+
+**Tomás Bernal Zuluaga**
+
+[tbernalz@eafit.edu.co](mailto:tbernalz@eafit.edu.co) | [LinkedIn](https://www.linkedin.com/in/tbernalz)
+
+<a href="https://www.linkedin.com/in/tbernalz" target="_blank" rel="noreferrer">
+    <img src="https://seeklogo.com/images/L/linkedin-new-2020-logo-E14A5D55ED-seeklogo.com.png" alt="Linkedin" width="40" height="40"/>
+  </a>
